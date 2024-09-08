@@ -1,3 +1,6 @@
+let poemRotationInterval; // Almacenar el intervalo de rotación de poemas
+let stopRotation = false; // Variable de control para detener la rotación
+
 // Primer botón
 document.getElementById('startButton').addEventListener('click', function() {
     console.log('Botón "Click aquí" presionado'); // Depuración
@@ -18,11 +21,9 @@ document.getElementById('nextButton').addEventListener('click', function() {
     // Inicia la rotación de poemas
     rotatePoems(); 
 
-    // Llamar a la función que genera los corazones cuando se muestran los poemas
-    generateHearts();
-
     // Mostrar el botón para la canción después de los poemas
     setTimeout(() => {
+        console.log('Mostrando el botón de la canción'); // Depuración
         document.getElementById('songButton').classList.remove('hidden');
     }, 25000); // Mostrar el botón después de 25 segundos (aproximadamente cuando terminen los poemas)
 });
@@ -36,7 +37,11 @@ function rotatePoems() {
 
     poems[currentPoem].classList.add('active'); // Mostrar el primer poema
 
-    setInterval(() => {
+    poemRotationInterval = setInterval(() => {
+        if (stopRotation) {
+            clearInterval(poemRotationInterval); // Detener la rotación si se ha activado stopRotation
+            return;
+        }
         poems[currentPoem].classList.remove('active'); // Ocultar el poema actual
         currentPoem = (currentPoem + 1) % poems.length; // Cambiar al siguiente poema
         poems[currentPoem].classList.add('active'); // Mostrar el nuevo poema
@@ -64,5 +69,8 @@ function generateHearts() {
 // Mostrar la letra de la canción
 document.getElementById('songButton').addEventListener('click', function() {
     document.getElementById('lyrics').classList.remove('hidden');
-    document.getElementById('songButton').classList.add('hidden'); // Desaparece el botón cuando sale la letra
+    document.getElementById('songButton').classList.add('hidden'); // Ocultar el botón cuando se muestre la canción
+
+    // Detener la rotación de los poemas
+    stopRotation = true; // Marcar la variable para detener la rotación de poemas
 });

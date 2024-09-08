@@ -117,7 +117,11 @@ p {
     left: 10px;
     top: 0;
 }
-
+#songButton {
+    position: relative;
+    z-index: 2;
+    margin-top: 20px; /* Añade un margen superior si es necesario */
+}
 /* Animación de los corazones flotando */
 @keyframes float {
     0% {
