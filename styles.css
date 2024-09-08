@@ -4,15 +4,17 @@
     box-sizing: border-box;
 }
 
-body, html {
-    height: 100%;
+body {
     font-family: Arial, sans-serif;
     background-color: black;
     color: white;
     display: flex;
     justify-content: center;
     align-items: center;
-    overflow: hidden;
+    flex-direction: column;
+    overflow-x: hidden; /* Evitar scroll horizontal */
+    overflow-y: auto; /* Permitir solo el scroll vertical si es necesario */
+    min-height: 100vh; /* Asegurar que el contenido ocupe toda la altura de la pantalla */
 }
 
 /* Mantener el overlay visible al inicio */
@@ -20,14 +22,15 @@ body, html {
     display: flex;
     justify-content: center;
     align-items: center;
-    height: 100%;
+    height: 100vh;
     width: 100%;
     background-color: black;
     position: absolute;
+    overflow: hidden; /* Asegurar que no tenga scroll */
 }
 
 /* Botón estilo */
-#startButton, #nextButton {
+#startButton, #nextButton, #songButton {
     padding: 20px 40px;
     font-size: 24px;
     background-color: white;
@@ -37,7 +40,7 @@ body, html {
     transition: 0.3s;
 }
 
-#startButton:hover, #nextButton:hover {
+#startButton:hover, #nextButton:hover, #songButton:hover {
     background-color: grey;
 }
 
@@ -48,14 +51,17 @@ body, html {
 
 #message, #content {
     text-align: center;
-    position: relative;
-    height: 100%;
     width: 100%;
-    display: none;  /* Inicialmente oculto */
     justify-content: center;
     align-items: center;
     background-color: black;
     flex-direction: column;
+}
+
+#content {
+    margin-top: 50px;
+    padding-bottom: 50px;
+    overflow: visible; /* Asegurar que no tenga scroll propio */
 }
 
 p {
@@ -67,6 +73,7 @@ p {
 /* Estilos para el carrusel de poemas */
 #poems {
     position: relative;
+    overflow: visible; /* Asegurar que no haya scroll innecesario */
 }
 
 .poem {
@@ -83,30 +90,31 @@ p {
 /* Estilos para los corazones */
 .heart {
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-color: red;
     transform: rotate(-45deg);
     animation: float 5s ease-in-out infinite;
+    z-index: 1;
 }
 
 .heart:before,
 .heart:after {
     content: "";
     position: absolute;
-    width: 15px;
-    height: 15px;
+    width: 20px;
+    height: 20px;
     background-color: red;
     border-radius: 50%;
 }
 
 .heart:before {
-    top: -7.5px;
+    top: -10px;
     left: 0;
 }
 
 .heart:after {
-    left: 7.5px;
+    left: 10px;
     top: 0;
 }
 
@@ -119,5 +127,44 @@ p {
     100% {
         transform: translateY(-800px) rotate(-45deg);
         opacity: 0;
+    }
+}
+
+/* Estilo para la letra de la canción */
+#lyrics {
+    margin-top: 30px;
+    text-align: center;
+    padding: 0 20px; /* Añadido padding para mejor legibilidad */
+}
+
+#lyrics p {
+    font-size: 20px;
+    line-height: 1.8;
+    color: #ffffff;
+}
+
+/* Adaptaciones para pantallas pequeñas como móviles */
+@media screen and (max-width: 768px) {
+    p {
+        font-size: 18px;
+        line-height: 1.4;
+    }
+    
+    #startButton, #nextButton, #songButton {
+        padding: 10px 20px;
+        font-size: 18px;
+    }
+}
+
+/* Adaptaciones para pantallas muy grandes */
+@media screen and (min-width: 1200px) {
+    p {
+        font-size: 28px;
+        line-height: 1.8;
+    }
+    
+    #startButton, #nextButton, #songButton {
+        padding: 30px 60px;
+        font-size: 28px;
     }
 }

@@ -18,8 +18,13 @@ document.getElementById('nextButton').addEventListener('click', function() {
     // Inicia la rotación de poemas
     rotatePoems(); 
 
-    // Generar corazones aleatorios
+    // Llamar a la función que genera los corazones cuando se muestran los poemas
     generateHearts();
+
+    // Mostrar el botón para la canción después de los poemas
+    setTimeout(() => {
+        document.getElementById('songButton').classList.remove('hidden');
+    }, 25000); // Mostrar el botón después de 25 segundos (aproximadamente cuando terminen los poemas)
 });
 
 // Función para rotar los poemas
@@ -55,3 +60,9 @@ function generateHearts() {
         }, 5000);
     }, 500); // Crear un nuevo corazón cada medio segundo
 }
+
+// Mostrar la letra de la canción
+document.getElementById('songButton').addEventListener('click', function() {
+    document.getElementById('lyrics').classList.remove('hidden');
+    document.getElementById('songButton').classList.add('hidden'); // Desaparece el botón cuando sale la letra
+});
