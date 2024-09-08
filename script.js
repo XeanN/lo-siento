@@ -73,4 +73,16 @@ document.getElementById('songButton').addEventListener('click', function() {
 
     // Detener la rotación de los poemas
     stopRotation = true; // Marcar la variable para detener la rotación de poemas
+    
+    // Ocultar todos los poemas
+    const poems = document.querySelectorAll('.poem');
+    poems.forEach(poem => {
+        poem.classList.remove('active'); // Asegurar que los poemas estén ocultos
+    });
+
+    // Continuar mostrando los corazones
+    generateHearts();
 });
+
+// Llamamos a la función para que los corazones aparezcan desde el inicio en los poemas
+generateHearts();
